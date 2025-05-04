@@ -1,0 +1,60 @@
+\<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Place Your Order</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Customer Order Form</h2>
+
+    <form method="POST" action="submit_order.php" class="row g-3 bg-white p-4 rounded shadow">
+
+      <div class="col-md-6">
+        <label for="cust_name" class="form-label">Customer Name</label>
+        <input type="text" class="form-control" id="cust_name" name="cust_name" required>
+      </div>
+
+      <div class="col-md-6">
+        <label for="cust_no" class="form-label">Contact Number</label>
+        <input type="text" class="form-control" id="cust_no" name="cust_no" required>
+      </div>
+
+      <div class="col-md-6">
+        <label for="table_no" class="form-label">Table Number (Leave blank for home order)</label>
+        <input type="number" class="form-control" id="table_no" name="table_no" min="1" max="20">
+      </div>
+
+      <div class="col-md-6">
+        <label for="mid" class="form-label">Menu Item ID (MID)</label>
+        <input type="number" class="form-control" id="mid" name="mid" required>
+      </div>
+
+      <div class="col-md-6">
+        <label for="quantity" class="form-label">Quantity</label>
+        <input type="number" class="form-control" id="quantity" name="quantity" min="1" value="1" required>
+      </div>
+
+      <div class="col-md-6">
+        <label for="order_type" class="form-label">Order Type</label>
+        <select class="form-select" id="order_type" name="order_type" required>
+          <option value="">Select Order Type</option>
+          <option value="tableorder">Table Order</option>
+          <option value="homeorder">Home Order</option>
+        </select>
+      </div>
+
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-success px-5">Place Order</button>
+      </div>
+
+    </form>
+  </div>
+
+</body>
+
+</html>
