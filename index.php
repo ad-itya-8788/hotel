@@ -374,29 +374,200 @@ include 'assets/public/menu.php';
             color: #666;
             margin-top: 2px;
         }
+
+        /* Enhanced UI Styles */
+        .header {
+            background: linear-gradient(90deg, #1a0d0d, #050d0f, #000000);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-confirm {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+        }
+
+        .btn-confirm:hover {
+            background-color: #e05c5c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-cancel {
+            background-color: #f0f0f0;
+            color: #666;
+            border: none;
+            padding: 10px 20px;
+        }
+
+        .btn-cancel:hover {
+            background-color: #e0e0e0;
+        }
+
+        .modal-content {
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-header {
+            background-color: #f9f9f9;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .menu-item {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-item-image {
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .menu-item-content {
+            padding: 15px;
+        }
+
+        .menu-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .menu-item-price {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        .menu-item-description {
+            color: #666;
+            margin: 8px 0;
+        }
+
+        .menu-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .order-btn {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .order-btn:hover {
+            background-color: #e05c5c;
+        }
+
+        /* Message to cook textarea */
+        .message-to-cook {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 12px;
+            width: 100%;
+            min-height: 80px;
+            resize: vertical;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .message-to-cook:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
+            outline: none;
+        }
+
+        /* Optional field indicator */
+        .optional-field {
+            font-size: 12px;
+            color: #888;
+            margin-left: 5px;
+            font-weight: normal;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Header with Logo and Search -->
-    <header class="header">
-        <div class="nav-container">
-            <a href="login.html" class="logo">
-                <i class="fas fa-utensils"></i>
-                Hotel Aditya
-            </a>
-            <div class="search-container">
-                <input type="text" id="searchInput" class="search-box" placeholder="Search for dishes..." oninput="liveSearch()" value="<?php echo htmlspecialchars($searchQuery); ?>">
-                <button class="search-btn" onclick="liveSearch()" aria-label="Search">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-            <div class="cart-icon" onclick="toggleCartPreview()">
-<i style="color:white;" class="fas fa-shopping-cart fa-lg"></i>
-                <span class="cart-count">0</span>
-            </div>
+<!-- Header with Logo and Search -->
+<header class="header">
+    <div class="nav-container">
+        <!-- Logo -->
+        <a href="login.html" class="logo">
+            <i class="fas fa-utensils"></i>
+            Hotel Aditya
+        </a>
+
+        <!-- Search Box -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-box" placeholder="Search for dishes..." oninput="liveSearch()" value="<?php echo htmlspecialchars($searchQuery); ?>">
+            <button class="search-btn" onclick="liveSearch()" aria-label="Search">
+                <i class="fas fa-search"></i>
+            </button>
         </div>
-    </header>
+
+        <!-- Track Order Link -->
+        <a href="order-status.php"
+   style="background-color: green; color: white; padding: 8px 16px; border: none; border-radius: 5px; text-decoration: none; font-weight: bold; margin-left: 20px; display: inline-block;"
+   onmouseover="this.style.backgroundColor='#006400'"
+   onmouseout="this.style.backgroundColor='green'">
+   Track Order
+</a>
+
+        <!-- Cart Icon -->
+        <div class="cart-icon" onclick="toggleCartPreview()">
+            <i class="fas fa-shopping-cart fa-lg" style="color:white;"></i>
+            <span class="cart-count">0</span>
+        </div>
+    </div>
+</header>
+
 
     <!-- Cart Preview -->
     <div id="cartPreview" class="cart-preview">
@@ -440,7 +611,7 @@ include 'assets/public/menu.php';
     <div id="addToCartModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title"><i class="fas fa-cart-pls"></i> Add to Cart</h3>
+                <h3 class="modal-title"><i class="fas fa-cart-plus"></i> Add to Cart</h3>
                 <span class="close" aria-label="Close" onclick="closeAddToCartModal()">&times;</span>
             </div>
             <div class="modal-body">
@@ -533,14 +704,14 @@ include 'assets/public/menu.php';
     <div id="checkoutModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="checkoutModalTitle"><i class="fas fa-shopping-cart"></i> Complete Your Order</h3>
+                <h3 class="modal-title" id="checkoutModalTitle"><i class="fas fa-shopping-bag"></i> Complete Your Order</h3>
                 <span class="close" aria-label="Close" onclick="closeCheckoutModal()">&times;</span>
             </div>
             <div class="modal-body">
                 <!-- Order Type Tabs -->
                 <div class="order-type-tabs">
-                    <div class="order-type-tab active" id="whatsappOrderTab" onclick="switchOrderType('whatsapp')">
-                        <i class="fab fa-whatsapp"></i> WhatsApp Order
+                    <div class="order-type-tab active" id="parcelOrderTab" onclick="switchOrderType('parcel')">
+                        <i class="fas fa-shopping-bag"></i> Parcel Order
                     </div>
                     <div class="order-type-tab" id="tableOrderTab" onclick="switchOrderType('tableorder')">
                         <i class="fas fa-utensils"></i> Table Order
@@ -548,10 +719,9 @@ include 'assets/public/menu.php';
                 </div>
                 
                 <form id="checkoutForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                    <input type="hidden" id="orderType" name="orderType" value="homeorder">
+                    <input type="hidden" id="orderType" name="orderType" value="parcelorder">
                     <input type="hidden" id="cartItemsInput" name="cartItems" value="">
                     <input type="hidden" name="submit_order" value="1">
-                    <input type="hidden" id="whatsappLinkInput" name="whatsappLink" value="">
                     
                     <div class="form-group">
                         <label for="customerName">Your Name</label>
@@ -560,40 +730,43 @@ include 'assets/public/menu.php';
                     </div>
                     
                     <div class="form-group">
-                        <label for="customerPhone">Your Mobile Number</label>
-                        <input type="tel" id="customerPhone" name="customerPhone" class="form-control" required pattern="[0-9]{10}">
+                        <label for="customerPhone">Your Mobile Number <span class="optional-field">(Optional)</span></label>
+                        <input type="tel" id="customerPhone" name="customerPhone" class="form-control" pattern="[0-9]{10}">
                         <div class="error-message">Please enter a valid 10-digit mobile number</div>
                     </div>
                     
-                    <!-- WhatsApp Order Fields -->
-                    <div id="whatsappOrderFields" class="order-form-section active">
+                    <!-- Parcel Order Fields -->
+                    <div id="parcelOrderFields" class="order-form-section active">
                         <div class="form-group">
-                            <label for="customerAddress">Delivery Address</label>
-                            <!-- Removed required attribute - will be controlled by JavaScript -->
-                            <textarea id="customerAddress" name="customerAddress" class="form-control" rows="2"></textarea>
-                            <div class="error-message">Please enter your delivery address</div>
+                            <label for="cookMessage">Message to Cook <span class="optional-field">(Optional)</span></label>
+                            <textarea id="cookMessage" name="cookMessage" class="message-to-cook" rows="3" placeholder="Any special instructions for preparing your food..."></textarea>
                         </div>
                     </div>
                     
-                   <!-- Table Order Fields -->
-<div id="tableOrderFields" class="order-form-section">
-    <div class="form-group">
-        <label>Select Table</label>
-        <div class="table-selection">
-            <?php for($i = 1; $i <= 10; $i++): 
-                $isOccupied = $tableStatus[$i];
-                $statusClass = $isOccupied ? 'occupied' : 'available';  // Set class accordingly
-                $statusText = $isOccupied ? 'Occupied' : 'Available';  // Fix status text
-            ?>
-            <div class="table-option <?php echo $statusClass; ?>" data-table="<?php echo $i; ?>" onclick="<?php echo $isOccupied ? '' : 'selectTable(this)'; ?>">
-                <div class="table-number">Table <?php echo $i; ?></div>
-                <div class="table-status"><?php echo $statusText; ?></div>
-            </div>
-            <?php endfor; ?>
-        </div>
-        <input type="hidden" id="tableNumber" name="tableNumber" value="">
-    </div>
-</div>
+                    <!-- Table Order Fields -->
+                    <div id="tableOrderFields" class="order-form-section">
+                        <div class="form-group">
+                            <label>Select Table</label>
+                            <div class="table-selection">
+                                <?php for($i = 1; $i <= 10; $i++): 
+                                    $isOccupied = $tableStatus[$i];
+                                    $statusClass = $isOccupied ? 'occupied' : 'available';
+                                    $statusText = $isOccupied ? 'Occupied' : 'Available';
+                                ?>
+                                <div class="table-option <?php echo $statusClass; ?>" data-table="<?php echo $i; ?>" onclick="<?php echo $isOccupied ? '' : 'selectTable(this)'; ?>">
+                                    <div class="table-number">Table <?php echo $i; ?></div>
+                                    <div class="table-status"><?php echo $statusText; ?></div>
+                                </div>
+                                <?php endfor; ?>
+                            </div>
+                            <input type="hidden" id="tableNumber" name="tableNumber" value="">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tableCookMessage">Message to Cook <span class="optional-field">(Optional)</span></label>
+                            <textarea id="tableCookMessage" name="tableCookMessage" class="message-to-cook" rows="3" placeholder="Any special instructions for preparing your food..."></textarea>
+                        </div>
+                    </div>
  
                     <!-- Cart Summary -->
                     <div class="cart-summary">
@@ -623,6 +796,552 @@ include 'assets/public/menu.php';
             <p>&copy; <?php echo date('Y'); ?> Hotel Aditya. All Rights Reserved.</p>
         </div>
     </footer>
-   <script src="assets/js/index.js"></script>
+<script>
+      // Define prices for extras
+  const CHAPATI_PRICE = 10;
+  const ROTI_PRICE = 20;
+
+  // Cart functionality
+  let cart = [];
+  let currentItem = {
+    id: '',
+    name: '',
+    fullPrice: '',
+    halfPrice: '',
+    selectedSize: 'Full',
+    quantity: 1,
+    unitPrice: 0,
+    totalPrice: 0,
+    roti: 0,
+    chapati: 0
+  };
+
+  // Display menu items in animation one by one 
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach((item, index) => {
+      item.style.setProperty('--item-index', index);
+    });
+
+    // Initialize cart from localStorage if available
+    const savedCart = localStorage.getItem('hotelAdityaCart');
+    if (savedCart) {
+      cart = JSON.parse(savedCart);
+      updateCartCount();
+      updateCartPreview();
+    }
+  });
+
+  // Search functionality
+  function liveSearch() {
+    const searchQuery = document.getElementById('searchInput').value;
+
+    // Create an XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+
+    // Configure it: GET-request for the URL
+    xhr.open('GET', '?search=' + encodeURIComponent(searchQuery), true);
+
+    // Send the request
+    xhr.send();
+
+    // This will be called after the response is received
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        // Extract the menu results from the response
+        const parser = new DOMParser();
+        const htmlDoc = parser.parseFromString(xhr.responseText, 'text/html');
+        const menuResults = htmlDoc.getElementById('menuResults').innerHTML;
+
+        // Update the menu results
+        document.getElementById('menuResults').innerHTML = menuResults;
+
+        // Reapply animation to new menu items
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach((item, index) => {
+          item.style.setProperty('--item-index', index);
+        });
+      }
+    };
+  }
+
+  // Toggle cart preview
+  function toggleCartPreview() {
+    const cartPreview = document.getElementById('cartPreview');
+    cartPreview.classList.toggle('show');
+  }
+
+  // Add to cart functionality
+  function addToCart(button) {
+    // Get the menu item data
+    const menuItem = button.closest('.menu-item');
+    currentItem.id = menuItem.getAttribute('data-item-id');
+    currentItem.name = menuItem.getAttribute('data-item-name');
+    currentItem.fullPrice = menuItem.getAttribute('data-full-price');
+    currentItem.halfPrice = menuItem.getAttribute('data-half-price');
+
+    // Reset form values
+    document.getElementById('sizeFull').checked = true;
+    document.getElementById('itemQuantity').value = 1;
+    document.getElementById('rotiQuantity').value = 0;
+    document.getElementById('chapatiQuantity').value = 0;
+
+    // Set default values
+    currentItem.selectedSize = 'Full';
+    currentItem.quantity = 1;
+    currentItem.roti = 0;
+    currentItem.chapati = 0;
+
+    // Update summary
+    updateItemSummary();
+
+    // Show modal
+    const modal = document.getElementById('addToCartModal');
+    modal.style.display = 'block';
+    setTimeout(() => {
+      modal.classList.add('show');
+    }, 10);
+  }
+
+  // Update item summary in add to cart modal
+  function updateItemSummary() {
+    document.getElementById('summaryItemName').textContent = currentItem.name;
+    document.getElementById('summaryItemSize').textContent = currentItem.selectedSize;
+
+    // Set price based on selected size
+    if (currentItem.selectedSize === 'Full') {
+      document.getElementById('summaryItemPrice').textContent = currentItem.fullPrice;
+      currentItem.unitPrice = parseFloat(currentItem.fullPrice.replace('₹', '').replace('N/A', '0'));
+    } else {
+      document.getElementById('summaryItemPrice').textContent = currentItem.halfPrice;
+      currentItem.unitPrice = parseFloat(currentItem.halfPrice.replace('₹', '').replace('N/A', '0'));
+    }
+
+    document.getElementById('summaryItemQuantity').textContent = currentItem.quantity;
+
+    // Update extras
+    let extrasText = '';
+    let extrasPrice = 0;
+    
+    if (currentItem.roti > 0) {
+      extrasText += `Roti x${currentItem.roti} (₹${currentItem.roti * ROTI_PRICE})`;
+      extrasPrice += currentItem.roti * ROTI_PRICE;
+    }
+    
+    if (currentItem.chapati > 0) {
+      if (extrasText) extrasText += ', ';
+      extrasText += `Chapati x${currentItem.chapati} (₹${currentItem.chapati * CHAPATI_PRICE})`;
+      extrasPrice += currentItem.chapati * CHAPATI_PRICE;
+    }
+
+    document.getElementById('summaryExtras').textContent = extrasText || 'None';
+
+    // Calculate total including extras
+    currentItem.totalPrice = (currentItem.unitPrice * currentItem.quantity) + extrasPrice;
+    document.getElementById('summaryTotal').textContent = '₹' + currentItem.totalPrice.toFixed(2);
+  }
+
+  // Close add to cart modal
+  function closeAddToCartModal() {
+    const modal = document.getElementById('addToCartModal');
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300);
+  }
+
+  // Confirm add to cart
+  function confirmAddToCart() {
+    // Create cart item
+    const cartItem = {
+      id: currentItem.id,
+      name: currentItem.name,
+      size: currentItem.selectedSize,
+      quantity: currentItem.quantity,
+      unitPrice: currentItem.unitPrice,
+      totalPrice: currentItem.totalPrice,
+      roti: currentItem.roti,
+      chapati: currentItem.chapati,
+      extrasCost: (currentItem.roti * ROTI_PRICE) + (currentItem.chapati * CHAPATI_PRICE)
+    };
+
+    // Add to cart
+    cart.push(cartItem);
+
+    // Save cart to localStorage
+    localStorage.setItem('hotelAdityaCart', JSON.stringify(cart));
+
+    // Update cart count
+    updateCartCount();
+
+    // Update cart preview
+    updateCartPreview();
+
+    // Close modal
+    closeAddToCartModal();
+
+    // Show success message with SweetAlert
+    Swal.fire({
+      title: 'Item Added!',
+      text: `${currentItem.name} (${currentItem.selectedSize}) added to cart!`,
+      icon: 'success',
+      timer: 2000,
+      showConfirmButton: false
+    });
+  }
+
+  // Update cart count
+  function updateCartCount() {
+    const cartCount = document.querySelector('.cart-count');
+    cartCount.textContent = cart.length;
+  }
+
+  // Update cart preview
+  function updateCartPreview() {
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+
+    if (cart.length === 0) {
+      cartItems.innerHTML = '<div class="empty-cart-message">Your cart is empty</div>';
+      cartTotal.textContent = '₹0.00';
+      return;
+    }
+
+    let html = '';
+    let total = 0;
+    
+    cart.forEach((item, index) => {
+      let itemDetails = `${item.size} x ${item.quantity}`;
+      if (item.roti > 0) {
+        itemDetails += `, Roti x${item.roti} (₹${item.roti * ROTI_PRICE})`;
+      }
+      if (item.chapati > 0) {
+        itemDetails += `, Chapati x${item.chapati} (₹${item.chapati * CHAPATI_PRICE})`;
+      }
+
+      html += `
+      <div class="cart-item">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-details">${itemDetails}</div>
+        </div>
+        <div class="cart-item-price">₹${item.totalPrice.toFixed(2)}</div>
+        <div class="cart-item-remove" onclick="removeFromCart(${index})">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      `;
+
+      total += item.totalPrice;
+    });
+
+    cartItems.innerHTML = html;
+    cartTotal.textContent = '₹' + total.toFixed(2);
+  }
+
+  // Remove item from cart
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+
+    // Save cart to localStorage
+    localStorage.setItem('hotelAdityaCart', JSON.stringify(cart));
+
+    // Update cart count
+    updateCartCount();
+
+    // Update cart preview
+    updateCartPreview();
+
+    // Show success message with SweetAlert
+    Swal.fire({
+      title: 'Item Removed',
+      icon: 'info',
+      timer: 1500,
+      showConfirmButton: false
+    });
+  }
+
+  // Clear cart
+  function clearCart() {
+    cart = [];
+
+    // Save cart to localStorage
+    localStorage.setItem('hotelAdityaCart', JSON.stringify(cart));
+
+    // Update cart count
+    updateCartCount();
+
+    // Update cart preview
+    updateCartPreview();
+
+    // Close cart preview
+    toggleCartPreview();
+
+    // Show success message with SweetAlert
+    Swal.fire({
+      title: 'Cart Cleared',
+      icon: 'info',
+      timer: 1500,
+      showConfirmButton: false
+    });
+  }
+
+  // Quantity functions
+  function incrementQuantity() {
+    if (currentItem.quantity < 10) {
+      currentItem.quantity++;
+      document.getElementById('itemQuantity').value = currentItem.quantity;
+      updateItemSummary();
+    }
+  }
+
+  function decrementQuantity() {
+    if (currentItem.quantity > 1) {
+      currentItem.quantity--;
+      document.getElementById('itemQuantity').value = currentItem.quantity;
+      updateItemSummary();
+    }
+  }
+
+  // Extras functions
+  function incrementExtra(type) {
+    const input = document.getElementById(type + 'Quantity');
+    if (parseInt(input.value) < 20) {
+      input.value = parseInt(input.value) + 1;
+      if (type === 'roti') {
+        currentItem.roti = parseInt(input.value);
+      } else {
+        currentItem.chapati = parseInt(input.value);
+      }
+      updateItemSummary();
+    }
+  }
+
+  function decrementExtra(type) {
+    const input = document.getElementById(type + 'Quantity');
+    if (parseInt(input.value) > 0) {
+      input.value = parseInt(input.value) - 1;
+      if (type === 'roti') {
+        currentItem.roti = parseInt(input.value);
+      } else {
+        currentItem.chapati = parseInt(input.value);
+      }
+      updateItemSummary();
+    }
+  }
+
+  // Size selection
+  document.getElementById('sizeFull').addEventListener('change', function() {
+    if (this.checked) {
+      currentItem.selectedSize = 'Full';
+      updateItemSummary();
+    }
+  });
+
+  document.getElementById('sizeHalf').addEventListener('change', function() {
+    if (this.checked) {
+      currentItem.selectedSize = 'Half';
+      updateItemSummary();
+    }
+  });
+
+  // Quantity input change
+  document.getElementById('itemQuantity').addEventListener('change', function() {
+    currentItem.quantity = parseInt(this.value) || 1;
+    if (currentItem.quantity < 1) currentItem.quantity = 1;
+    if (currentItem.quantity > 10) currentItem.quantity = 10;
+    this.value = currentItem.quantity;
+    updateItemSummary();
+  });
+
+  // Checkout functions
+  function openCheckoutModal() {
+    if (cart.length === 0) {
+      Swal.fire({
+        title: 'Empty Cart',
+        text: 'Your cart is empty. Please add items before checkout.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+
+    // Close cart preview
+    const cartPreview = document.getElementById('cartPreview');
+    if (cartPreview.classList.contains('show')) {
+      toggleCartPreview();
+    }
+
+    // Reset form
+    document.getElementById('checkoutForm').reset();
+
+    // Set default order type
+    document.getElementById('orderType').value = 'parcelorder';
+    switchOrderType('parcel');
+
+    // Update cart summary
+    updateCheckoutSummary();
+
+    // Show modal
+    const modal = document.getElementById('checkoutModal');
+    modal.style.display = 'block';
+    setTimeout(() => {
+      modal.classList.add('show');
+    }, 10);
+  }
+
+  function closeCheckoutModal() {
+    const modal = document.getElementById('checkoutModal');
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 300);
+  }
+
+  function updateCheckoutSummary() {
+    const cartSummaryItems = document.getElementById('cartSummaryItems');
+    const checkoutTotal = document.getElementById('checkoutTotal');
+    const cartItemCount = document.getElementById('cartItemCount');
+
+    let html = '';
+    let total = 0;
+    
+    cart.forEach((item) => {
+      let itemDetails = `${item.size} x ${item.quantity}`;
+      if (item.roti > 0) {
+        itemDetails += `, Roti x${item.roti} (₹${item.roti * ROTI_PRICE})`;
+      }
+      if (item.chapati > 0) {
+        itemDetails += `, Chapati x${item.chapati} (₹${item.chapati * CHAPATI_PRICE})`;
+      }
+
+      html += `
+      <div class="cart-summary-item">
+        <div>
+          <div class="cart-summary-item-name">${item.name}</div>
+          <div class="cart-summary-item-details">${itemDetails}</div>
+        </div>
+        <div>₹${item.totalPrice.toFixed(2)}</div>
+      </div>
+      `;
+
+      total += item.totalPrice;
+    });
+
+    cartSummaryItems.innerHTML = html;
+    checkoutTotal.textContent = '₹' + total.toFixed(2);
+    cartItemCount.textContent = cart.length + (cart.length === 1 ? ' item' : ' items');
+  }
+
+  // Switch between order types (parcel or table)
+  function switchOrderType(type) {
+    // Update hidden input
+    document.getElementById('orderType').value = type === 'parcel' ? 'parcelorder' : 'tableorder';
+
+    // Update tabs
+    document.getElementById('parcelOrderTab').classList.toggle('active', type === 'parcel');
+    document.getElementById('tableOrderTab').classList.toggle('active', type === 'tableorder');
+
+    // Update form sections
+    document.getElementById('parcelOrderFields').classList.toggle('active', type === 'parcel');
+    document.getElementById('tableOrderFields').classList.toggle('active', type === 'tableorder');
+
+    // Update modal title
+    const modalTitle = document.getElementById('checkoutModalTitle');
+    if (type === 'parcel') {
+      modalTitle.innerHTML = '<i class="fas fa-shopping-bag"></i> Parcel Order';
+    } else {
+      modalTitle.innerHTML = '<i class="fas fa-utensils"></i> Table Order';
+    }
+
+    // If table order, select first available table
+    if (type === 'tableorder') {
+      const firstAvailableTable = document.querySelector('.table-option:not(.occupied)');
+      if (firstAvailableTable) {
+        selectTable(firstAvailableTable);
+      }
+    }
+  }
+
+  function selectTable(tableElement) {
+    // Skip if table is occupied
+    if (tableElement.classList.contains('occupied')) {
+      return;
+    }
+
+    // Remove selected class from all tables
+    const tables = document.querySelectorAll('.table-option');
+    tables.forEach(table => {
+      table.classList.remove('selected');
+    });
+
+    // Add selected class to clicked table
+    tableElement.classList.add('selected');
+
+    // Update hidden input
+    const tableNumber = tableElement.getAttribute('data-table');
+    document.getElementById('tableNumber').value = tableNumber;
+  }
+
+  // Submit order function
+  function submitOrder() {
+    // Get order type
+    const orderType = document.getElementById('orderType').value;
+
+    // Custom validation for different order types
+    if (orderType === 'tableorder') {
+      // For table orders, make sure a table is selected
+      if (!document.getElementById('tableNumber').value) {
+        Swal.fire({
+          title: 'Table Required',
+          text: 'Please select a table for your order.',
+          icon: 'warning',
+          confirmButtonText: 'OK'
+        });
+        return;
+      }
+    }
+
+    // Check required field (name)
+    const nameField = document.getElementById('customerName');
+
+    if (!nameField.value.trim()) {
+      Swal.fire({
+        title: 'Name Required',
+        text: 'Please enter your name.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+
+    // Phone validation - only if provided (since it's optional)
+    const phoneField = document.getElementById('customerPhone');
+    if (phoneField.value.trim() && !phoneField.checkValidity()) {
+      Swal.fire({
+        title: 'Invalid Phone Number',
+        text: 'Please enter a valid 10-digit mobile number or leave it blank.',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      });
+      return;
+    }
+
+    // Set cart items in hidden input
+    document.getElementById('cartItemsInput').value = JSON.stringify(cart);
+
+    // Show loading message
+    Swal.fire({
+      title: 'Processing Order...',
+      text: 'Please wait while we process your order.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+        // Submit the form
+        document.getElementById('checkoutForm').submit();
+      }
+    });
+  }
+</script>
 </body>
 </html>

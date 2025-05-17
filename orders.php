@@ -110,9 +110,9 @@ function generateBillMessage($order) {
     if ($order['order_type'] == 'tableorder') {
         $message .= "🍽️ Type: Table #" . $order['table_no'] . "\n";
     } else {
-        $message .= "🏠 Type: Home Delivery\n";
+        $message .= "🛍️ Type: Parcel Order\n";
         if (!empty($order['delivery_address'])) {
-            $message .= "📍 Address: " . $order['delivery_address'] . "\n";
+            $message .= "📝 Message to Cook: " . $order['delivery_address'] . "\n";
         }
     }
     
@@ -317,10 +317,10 @@ $query = "SELECT COUNT(*) FROM orders WHERE order_type = 'tableorder' AND order_
 $result = pg_query($conn, $query);
 $table_order = pg_fetch_result($result, 0, 0);
 
-// Home orders count (only today's)
-$query = "SELECT COUNT(*) FROM orders WHERE order_type = 'homeorder' AND order_at BETWEEN '$today_start' AND '$today_end'";
+// Parcel orders count (only today's)
+$query = "SELECT COUNT(*) FROM orders WHERE order_type = 'parcelorder' AND order_at BETWEEN '$today_start' AND '$today_end'";
 $result = pg_query($conn, $query);
-$homeorder = pg_fetch_result($result, 0, 0);
+$parcelorder = pg_fetch_result($result, 0, 0);
 
 // Fetch today's orders
 $query = "SELECT * FROM orders WHERE order_at BETWEEN '$today_start' AND '$today_end' ORDER BY order_at DESC";
@@ -964,8 +964,8 @@ function getFilterParams() {
             font-weight: 500;
         }
         
-        /* Address display */
-        .address-box {
+        /* Message to cook display */
+        .message-box {
             background-color: rgba(0,0,0,0.02);
             border-radius: 6px;
             padding: 10px;
@@ -1251,7 +1251,7 @@ function getFilterParams() {
                         <p>
                             <strong>Order ID:</strong> #<?= $order['oid'] ?><br>
                             <strong>Date:</strong> <?= date('d M Y, h:i A', strtotime($order['order_at'])) ?><br>
-                            <strong>Order Type:</strong> <?= $order['order_type'] == 'tableorder' ? 'Table Order' : 'Home Delivery' ?><br>
+                            <strong>Order Type:</strong> <?= $order['order_type'] == 'tableorder' ? 'Table Order' : 'Parcel Order' ?><br>
                             <?php if ($order['order_type'] == 'tableorder'): ?>
                                 <strong>Table Number:</strong> <?= $order['table_no'] ?><br>
                             <?php endif; ?>
@@ -1268,9 +1268,9 @@ function getFilterParams() {
                         <p>
                             <strong>Name:</strong> <?= htmlspecialchars($order['cust_name']) ?><br>
                             <strong>Phone:</strong> <?= htmlspecialchars($order['cust_no']) ?><br>
-                            <?php if ($order['order_type'] == 'homeorder' && !empty($order['delivery_address'])): ?>
-                                <strong>Delivery Address:</strong><br>
-                                <div class="address-box">
+                            <?php if ($order['order_type'] == 'parcelorder' && !empty($order['delivery_address'])): ?>
+                                <strong>Message to Cook:</strong><br>
+                                <div class="message-box">
                                     <?= nl2br(htmlspecialchars($order['delivery_address'])) ?>
                                 </div>
                             <?php endif; ?>
@@ -1410,10 +1410,10 @@ function getFilterParams() {
                 <div class="col-md-3 mb-3">
                     <div class="stats-card">
                         <div class="stats-icon" style="background-color: #e76f51;">
-                            <i class="bi bi-house-door-fill"></i>
+                            <i class="bi bi-bag-fill"></i>
                         </div>
-                        <div class="stats-value"><?= $homeorder ?></div>
-                        <div class="stats-label">Today's Home Orders</div>
+                        <div class="stats-value"><?= $parcelorder ?></div>
+                        <div class="stats-label">Today's Parcel Orders</div>
                     </div>
                 </div>
 
@@ -1590,10 +1590,10 @@ function getFilterParams() {
                                                         <i class="bi bi-cup-hot"></i>
                                                         <span>Table <?= $order['table_no'] ?></span>
                                                     <?php else: ?>
-                                                        <i class="bi bi-house"></i>
-                                                        <span>Home Delivery</span>
+                                                        <i class="bi bi-bag"></i>
+                                                        <span>Parcel Order</span>
                                                         <?php if (!empty($order['delivery_address'])): ?>
-                                                            <div class="address-box mt-1 w-100">
+                                                            <div class="message-box mt-1 w-100">
                                                                 <?= nl2br(htmlspecialchars($order['delivery_address'])) ?>
                                                             </div>
                                                         <?php endif; ?>
@@ -1768,10 +1768,10 @@ function getFilterParams() {
                                                         <i class="bi bi-cup-hot"></i>
                                                         <span>Table <?= $order['table_no'] ?></span>
                                                     <?php else: ?>
-                                                        <i class="bi bi-house"></i>
-                                                        <span>Home Delivery</span>
+                                                        <i class="bi bi-bag"></i>
+                                                        <span>Parcel Order</span>
                                                         <?php if (!empty($order['delivery_address'])): ?>
-                                                            <div class="address-box mt-1 w-100">
+                                                            <div class="message-box mt-1 w-100">
                                                                 <?= nl2br(htmlspecialchars($order['delivery_address'])) ?>
                                                             </div>
                                                         <?php endif; ?>
