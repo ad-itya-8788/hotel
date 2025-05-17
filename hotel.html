@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Urban Pune | No Brokerage Rooms, PG & Hostels in Pune</title>
+  <meta name="description"
+    content="Login to Urban Pune to find verified no brokerage rooms, PG and hostels in Pune. Browse 1000+ listings with zero brokerage fees.">
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Font (Poppins) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #4e2a84;
+      --secondary: #ff6b35;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .btn-primary,
+    .bg-primary {
+      background-color: var(--primary) !important;
+      border-color: var(--primary) !important;
+    }
+
+    .text-primary {
+      color: var(--primary) !important;
+    }
+
+    .auth-container {
+      max-width: 450px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+    }
+
+    .auth-tabs .nav-link {
+      color: #6c757d;
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 0;
+      position: relative;
+    }
+
+    .auth-tabs .nav-link.active {
+      color: var(--primary);
+      background-color: transparent;
+      border-bottom: 3px solid var(--primary);
+    }
+
+    .form-control {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.25rem rgba(78, 42, 132, 0.25);
+    }
+
+    .logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+      font-size: 1.8rem;
+    }
+
+    .otp-inputs {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+
+    .otp-inputs input {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      font-size: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+    }
+
+    .otp-inputs input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.25rem rgba(78, 42, 132, 0.25);
+      outline: none;
+    }
+
+    #recaptcha-container {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+
+    .timer {
+      font-size: 0.9rem;
+      color: #6c757d;
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    .back-to-home {
+      display: inline-flex;
+      align-items: center;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .back-to-home:hover {
+      text-decoration: underline;
+    }
+
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      margin: 1.5rem 0;
+    }
+
+    .auth-divider::before,
+    .auth-divider::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    .auth-divider span {
+      padding: 0 1rem;
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+
+    .social-login {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-login button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #dee2e6;
+      background-color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    .social-login button:hover {
+      background-color: #f8f9fa;
+      transform: translateY(-3px);
+    }
+
+    .alert {
+      border-radius: 8px;
+    }
+
+    /* Loading spinner */
+    .spinner-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .spinner-overlay.show {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .spinner-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .spinner-text {
+      margin-top: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Loading Spinner -->
+  <div class="spinner-overlay" id="loadingSpinner">
+    <div class="spinner-container">
+      <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
+      <div class="spinner-text">Processing...</div>
+    </div>
+  </div>
+
+  <div class="container py-5">
+    <div class="text-center mb-4">
+      <a href="/" class="d-inline-block">
+        <span class="logo-text">
+          <span style="color: #7b17c8;">Urban</span><span style="color: #fd7e14;">Pune</span><span
+            style="color: #212529;">.in</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="auth-container">
+      <a href="/" class="back-to-home mb-4">
+        <i class="fas fa-arrow-left me-2"></i> Back to Home
+      </a>
+
+      <h1 class="h4 text-center mb-4 fw-bold">Welcome to Urban Pune</h1>
+
+      <!-- Auth Tabs -->
+      <ul class="nav nav-tabs auth-tabs mb-4" id="authTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button"
+            role="tab" aria-controls="login" aria-selected="true">Login</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button"
+            role="tab" aria-controls="register" aria-selected="false">Register</button>
+        </li>
+      </ul>
+
+      <!-- Alert for messages -->
+      <div class="alert alert-danger d-none" id="errorAlert" role="alert"></div>
+      <div class="alert alert-success d-none" id="successAlert" role="alert"></div>
+
+      <!-- Auth Content -->
+      <div class="tab-content" id="authTabsContent">
+        <!-- Login Tab -->
+        <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+          <div id="loginPhoneForm">
+            <p class="text-muted text-center mb-4">Enter your phone number to login</p>
+            <form id="loginForm">
+              <div class="mb-3">
+                <label for="loginPhone" class="form-label">Phone Number</label>
+                <div class="input-group">
+                  <span class="input-group-text">+91</span>
+                  <input type="tel" class="form-control" id="loginPhone" placeholder="10-digit mobile number" required
+                    pattern="[0-9]{10}" maxlength="10">
+                </div>
+                <div class="form-text">We'll send a verification code to this number</div>
+              </div>
+              <div id="login-recaptcha-container" class="mb-3"></div>
+              <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" id="loginSendOtpBtn">
+                Send OTP
+              </button>
+            </form>
+          </div>
+
+          <div id="loginOtpForm" class="d-none">
+            <p class="text-muted text-center mb-3">Enter the verification code sent to <span id="loginPhoneDisplay"
+                class="fw-bold"></span></p>
+            <form id="loginVerifyForm">
+              <div class="otp-inputs">
+                <input type="text" class="login-otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                <input type="text" class="login-otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                <input type="text" class="login-otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                <input type="text" class="login-otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                <input type="text" class="login-otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                <input type="text" class="login-otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+              </div>
+              <div class="timer" id="loginTimer">Resend OTP in <span id="loginCountdown">60</span>s</div>
+              <button type="submit" class="btn btn-primary w-100 py-2 fw-bold mt-3" id="loginVerifyBtn">
+                Verify & Login
+              </button>
+              <button type="button" class="btn btn-outline-secondary w-100 py-2 mt-2" id="loginBackBtn">
+                Back
+              </button>
+              <button type="button" class="btn btn-link w-100 d-none" id="loginResendBtn">
+                Resend OTP
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Register Tab -->
+        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+          <div id="registerForm">
+            <p class="text-muted text-center mb-4">Create a new account</p>
+            <form id="registerUserForm">
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="firstName" class="form-label">First Name</label>
+                  <input type="text" class="form-control" id="firstName" placeholder="First name" required>
+                </div>
+                <div class="col">
+                  <label for="lastName" class="form-label">Last Name</label>
+                  <input type="text" class="form-control" id="lastName" placeholder="Last name" required>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="registerPhone" class="form-label">Phone Number</label>
+                <div class="input-group">
+                  <span class="input-group-text">+91</span>
+                  <input type="tel" class="form-control" id="registerPhone" placeholder="10-digit mobile number"
+                    required pattern="[0-9]{10}" maxlength="10">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Gender</label>
+                <div class="d-flex gap-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" required>
+                    <label class="form-check-label" for="genderMale">Male</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female">
+                    <label class="form-check-label" for="genderFemale">Female</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="genderOther" value="other">
+                    <label class="form-check-label" for="genderOther">Other</label>
+                  </div>
+                </div>
+              </div>
+              <div id="register-recaptcha-container" class="mb-3"></div>
+              <button type="submit" class="btn btn-primary w-100 py-2 fw-bold" id="registerSendOtpBtn">
+                Send OTP
+              </button>
+            </form>
+          </div>
+
+          <div id="registerOtpForm" class="d-none">
+            <p class="text-muted text-center mb-3">Enter the verification code sent to <span id="registerPhoneDisplay"
+                class="fw-bold"></span></p>
+            <form id="registerVerifyForm">
+              <div class="otp-inputs">
+                <input type="text" class="register-otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric"
+                  required>
+                <input type="text" class="register-otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric"
+                  required>
+                <input type="text" class="register-otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric"
+                  required>
+                <input type="text" class="register-otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric"
+                  required>
+                <input type="text" class="register-otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric"
+                  required>
+                <input type="text" class="register-otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric"
+                  required>
+              </div>
+              <div class="timer" id="registerTimer">Resend OTP in <span id="registerCountdown">60</span>s</div>
+              <button type="submit" class="btn btn-primary w-100 py-2 fw-bold mt-3" id="registerVerifyBtn">
+                Verify & Register
+              </button>
+              <button type="button" class="btn btn-outline-secondary w-100 py-2 mt-2" id="registerBackBtn">
+                Back
+              </button>
+              <button type="button" class="btn btn-link w-100 d-none" id="registerResendBtn">
+                Resend OTP
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCvgkyvLyBi7E9sQ8B21FT83WqICXeuyzw",
+      authDomain: "urbanpneotp.firebaseapp.com",
+      projectId: "urbanpneotp",
+      storageBucket: "urbanpneotp.firebasestorage.app",
+      messagingSenderId: "32362361719",
+      appId: "1:32362361719:web:5312c5ee9e047c2fcc2772",
+      measurementId: "G-ZF6BG6YYPN"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Get elements
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const errorAlert = document.getElementById('errorAlert');
+    const successAlert = document.getElementById('successAlert');
+
+    // Login elements
+    const loginPhoneForm = document.getElementById('loginPhoneForm');
+    const loginOtpForm = document.getElementById('loginOtpForm');
+    const loginForm = document.getElementById('loginForm');
+    const loginPhone = document.getElementById('loginPhone');
+    const loginPhoneDisplay = document.getElementById('loginPhoneDisplay');
+    const loginVerifyForm = document.getElementById('loginVerifyForm');
+    const loginBackBtn = document.getElementById('loginBackBtn');
+    const loginResendBtn = document.getElementById('loginResendBtn');
+    const loginCountdown = document.getElementById('loginCountdown');
+    const loginTimer = document.getElementById('loginTimer');
+    const loginOtpInputs = document.querySelectorAll('.login-otp-input');
+
+    // Register elements
+    const registerForm = document.getElementById('registerForm');
+    const registerOtpForm = document.getElementById('registerOtpForm');
+    const registerUserForm = document.getElementById('registerUserForm');
+    const registerPhone = document.getElementById('registerPhone');
+    const registerPhoneDisplay = document.getElementById('registerPhoneDisplay');
+    const registerVerifyForm = document.getElementById('registerVerifyForm');
+    const registerBackBtn = document.getElementById('registerBackBtn');
+    const registerResendBtn = document.getElementById('registerResendBtn');
+    const registerCountdown = document.getElementById('registerCountdown');
+    const registerTimer = document.getElementById('registerTimer');
+    const registerOtpInputs = document.querySelectorAll('.register-otp-input');
+    const firstName = document.getElementById('firstName');
+    const lastName = document.getElementById('lastName');
+    const genderInputs = document.querySelectorAll('input[name="gender"]');
+
+    // Global variables
+    let loginVerificationId = '';
+    let registerVerificationId = '';
+    let loginInterval;
+    let registerInterval;
+
+    // Show loading spinner
+    function showLoading() {
+      loadingSpinner.classList.add('show');
+    }
+
+    // Hide loading spinner
+    function hideLoading() {
+      loadingSpinner.classList.remove('show');
+    }
+
+    // Show error message
+    function showError(message) {
+      errorAlert.textContent = message;
+      errorAlert.classList.remove('d-none');
+      successAlert.classList.add('d-none');
+      setTimeout(() => {
+        errorAlert.classList.add('d-none');
+      }, 5000);
+    }
+
+    // Show success message
+    function showSuccess(message) {
+      successAlert.textContent = message;
+      successAlert.classList.remove('d-none');
+      errorAlert.classList.add('d-none');
+      setTimeout(() => {
+        successAlert.classList.add('d-none');
+      }, 5000);
+    }
+
+    // Initialize reCAPTCHA verifier
+    window.onload = function () {
+      // Initialize reCAPTCHA for login
+      window.loginRecaptchaVerifier = new firebase.auth.RecaptchaVerifier('login-recaptcha-container', {
+        'size': 'normal',
+        'callback': (response) => {
+          // reCAPTCHA solved, allow sending OTP
+          document.getElementById('loginSendOtpBtn').disabled = false;
+        },
+        'expired-callback': () => {
+          // Response expired. Ask user to solve reCAPTCHA again.
+          document.getElementById('loginSendOtpBtn').disabled = true;
+        }
+      });
+      window.loginRecaptchaVerifier.render();
+
+      // Initialize reCAPTCHA for registration
+      window.registerRecaptchaVerifier = new firebase.auth.RecaptchaVerifier('register-recaptcha-container', {
+        'size': 'normal',
+        'callback': (response) => {
+          // reCAPTCHA solved, allow sending OTP
+          document.getElementById('registerSendOtpBtn').disabled = false;
+        },
+        'expired-callback': () => {
+          // Response expired. Ask user to solve reCAPTCHA again.
+          document.getElementById('registerSendOtpBtn').disabled = true;
+        }
+      });
+      window.registerRecaptchaVerifier.render();
+    };
+
+    // Handle OTP input fields
+    function setupOtpInputs(inputs) {
+      inputs.forEach((input, index) => {
+        // Focus next input when a digit is entered
+        input.addEventListener('input', function () {
+          if (this.value.length === 1) {
+            if (index < inputs.length - 1) {
+              inputs[index + 1].focus();
+            }
+          }
+        });
+
+        // Handle backspace
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Backspace' && this.value === '' && index > 0) {
+            inputs[index - 1].focus();
+          }
+        });
+
+        // Handle paste
+        input.addEventListener('paste', function (e) {
+          e.preventDefault();
+          const pasteData = e.clipboardData.getData('text').trim();
+          if (/^\d+$/.test(pasteData) && pasteData.length <= inputs.length) {
+            for (let i = 0; i < pasteData.length; i++) {
+              if (index + i < inputs.length) {
+                inputs[index + i].value = pasteData[i];
+              }
+            }
+            if (index + pasteData.length < inputs.length) {
+              inputs[index + pasteData.length].focus();
+            }
+          }
+        });
+      });
+    }
+
+    // Set up OTP inputs
+    setupOtpInputs(loginOtpInputs);
+    setupOtpInputs(registerOtpInputs);
+
+    // Get OTP from inputs
+    function getOtpFromInputs(inputs) {
+      return Array.from(inputs).map(input => input.value).join('');
+    }
+
+    // Start countdown timer
+    function startCountdown(countdownElement, timerElement, resendButton, seconds = 60) {
+      let remainingSeconds = seconds;
+
+      return setInterval(() => {
+        remainingSeconds--;
+        countdownElement.textContent = remainingSeconds;
+
+        if (remainingSeconds <= 0) {
+          clearInterval(interval);
+          timerElement.classList.add('d-none');
+          resendButton.classList.remove('d-none');
+        }
+      }, 1000);
+    }
+
+    // Reset countdown timer
+    function resetCountdown(countdownElement, timerElement, resendButton, intervalVar) {
+      if (intervalVar) {
+        clearInterval(intervalVar);
+      }
+
+      countdownElement.textContent = '60';
+      timerElement.classList.remove('d-none');
+      resendButton.classList.add('d-none');
+    }
+
+    // Send OTP for login
+    loginForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const phoneNumber = loginPhone.value.trim();
+
+      if (phoneNumber.length !== 10 || !/^\d+$/.test(phoneNumber)) {
+        showError('Please enter a valid 10-digit phone number');
+        return;
+      }
+
+      showLoading();
+
+      try {
+        // Check if user exists in the database
+        const response = await fetch('/api/check-user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ mobile: phoneNumber, type: 'login' })
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+          hideLoading();
+          showError(data.message || 'User not found. Please register first.');
+          return;
+        }
+
+        // Send OTP via Firebase
+        const formattedPhone = +91${ phoneNumber };
+        loginPhoneDisplay.textContent = formattedPhone;
+
+        firebase.auth().signInWithPhoneNumber(formattedPhone, window.loginRecaptchaVerifier)
+          .then((confirmationResult) => {
+            // SMS sent. Store confirmationResult for later use.
+            loginVerificationId = confirmationResult;
+
+            // Show OTP form
+            loginPhoneForm.classList.add('d-none');
+            loginOtpForm.classList.remove('d-none');
+
+            // Start countdown
+            resetCountdown(loginCountdown, loginTimer, loginResendBtn, loginInterval);
+            loginInterval = startCountdown(loginCountdown, loginTimer, loginResendBtn);
+
+            // Focus first OTP input
+            loginOtpInputs[0].focus();
+
+            hideLoading();
+            showSuccess('OTP sent successfully');
+          })
+          .catch((error) => {
+            console.error('Error sending OTP:', error);
+            hideLoading();
+
+            // Reset reCAPTCHA
+            window.loginRecaptchaVerifier.render().then(widgetId => {
+              grecaptcha.reset(widgetId);
+            });
+
+            showError(error.message || 'Failed to send OTP. Please try again.');
+          });
+      } catch (error) {
+        console.error('Error checking user:', error);
+        hideLoading();
+        showError('An error occurred. Please try again.');
+      }
+    });
+
+    // Verify OTP for login
+    loginVerifyForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const otp = getOtpFromInputs(loginOtpInputs);
+
+      if (otp.length !== 6 || !/^\d+$/.test(otp)) {
+        showError('Please enter a valid 6-digit OTP');
+        return;
+      }
+
+      showLoading();
+
+      try {
+        // Verify OTP with Firebase
+        const credential = firebase.auth.PhoneAuthProvider.credential(
+          loginVerificationId.verificationId,
+          otp
+        );
+
+        firebase.auth().signInWithCredential(credential)
+          .then(async (result) => {
+            // User signed in successfully with Firebase
+            // Now authenticate with our server
+            const phoneNumber = loginPhone.value.trim();
+
+            const response = await fetch('/api/verify-otp', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                mobile: phoneNumber,
+                type: 'login',
+                otp: otp,
+                firebase_uid: result.user.uid
+              })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+              showSuccess('Login successful! Redirecting...');
+              setTimeout(() => {
+                window.location.href = data.redirectTo || '/rooms';
+              }, 1500);
+            } else {
+              throw new Error(data.message || 'Failed to verify OTP');
+            }
+          })
+          .catch((error) => {
+            console.error('Error verifying OTP:', error);
+            hideLoading();
+            showError(error.message || 'Invalid OTP. Please try again.');
+          });
+      } catch (error) {
+        console.error('Error during verification:', error);
+        hideLoading();
+        showError('An error occurred during verification. Please try again.');
+      }
+    });
+
+    // Back button for login OTP form
+    loginBackBtn.addEventListener('click', function () {
+      loginOtpForm.classList.add('d-none');
+      loginPhoneForm.classList.remove('d-none');
+      clearInterval(loginInterval);
+
+      // Reset OTP inputs
+      loginOtpInputs.forEach(input => {
+        input.value = '';
+      });
+
+      // Reset reCAPTCHA
+      window.loginRecaptchaVerifier.render().then(widgetId => {
+        grecaptcha.reset(widgetId);
+      });
+    });
+
+    // Resend OTP for login
+    loginResendBtn.addEventListener('click', function () {
+      const phoneNumber = +91${ loginPhone.value.trim()
+    };
+
+    showLoading();
+
+    // Reset reCAPTCHA
+    window.loginRecaptchaVerifier.render().then(widgetId => {
+      grecaptcha.reset(widgetId);
+
+      // Resend OTP
+      firebase.auth().signInWithPhoneNumber(phoneNumber, window.loginRecaptchaVerifier)
+        .then((confirmationResult) => {
+          loginVerificationId = confirmationResult;
+
+          // Reset countdown
+          resetCountdown(loginCountdown, loginTimer, loginResendBtn, loginInterval);
+          loginInterval = startCountdown(loginCountdown, loginTimer, loginResendBtn);
+
+          // Clear OTP inputs
+          loginOtpInputs.forEach(input => {
+            input.value = '';
+          });
+
+          // Focus first OTP input
+          loginOtpInputs[0].focus();
+
+          hideLoading();
+          showSuccess('OTP resent successfully');
+        })
+        .catch((error) => {
+          console.error('Error resending OTP:', error);
+          hideLoading();
+          showError(error.message || 'Failed to resend OTP. Please try again.');
+        });
+    });
+    });
+
+    // Send OTP for registration
+    registerUserForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const phoneNumber = registerPhone.value.trim();
+      const firstNameValue = firstName.value.trim();
+      const lastNameValue = lastName.value.trim();
+
+      // Get selected gender
+      let genderValue = '';
+      for (const radio of genderInputs) {
+        if (radio.checked) {
+          genderValue = radio.value;
+          break;
+        }
+      }
+
+      if (phoneNumber.length !== 10 || !/^\d+$/.test(phoneNumber)) {
+        showError('Please enter a valid 10-digit phone number');
+        return;
+      }
+
+      if (!firstNameValue || !lastNameValue) {
+        showError('Please enter your first and last name');
+        return;
+      }
+
+      if (!genderValue) {
+        showError('Please select your gender');
+        return;
+      }
+
+      showLoading();
+
+      try {
+        // Check if user already exists
+        const response = await fetch('/api/check-user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ mobile: phoneNumber, type: 'register' })
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+          hideLoading();
+          showError(data.message || 'User already exists. Please login instead.');
+          return;
+        }
+
+        // Send OTP via Firebase
+        const formattedPhone = +91${ phoneNumber };
+        registerPhoneDisplay.textContent = formattedPhone;
+
+        firebase.auth().signInWithPhoneNumber(formattedPhone, window.registerRecaptchaVerifier)
+          .then((confirmationResult) => {
+            // SMS sent. Store confirmationResult for later use.
+            registerVerificationId = confirmationResult;
+
+            // Show OTP form
+            registerForm.classList.add('d-none');
+            registerOtpForm.classList.remove('d-none');
+
+            // Start countdown
+            resetCountdown(registerCountdown, registerTimer, registerResendBtn, registerInterval);
+            registerInterval = startCountdown(registerCountdown, registerTimer, registerResendBtn);
+
+            // Focus first OTP input
+            registerOtpInputs[0].focus();
+
+            hideLoading();
+            showSuccess('OTP sent successfully');
+          })
+          .catch((error) => {
+            console.error('Error sending OTP:', error);
+            hideLoading();
+
+            // Reset reCAPTCHA
+            window.registerRecaptchaVerifier.render().then(widgetId => {
+              grecaptcha.reset(widgetId);
+            });
+
+            showError(error.message || 'Failed to send OTP. Please try again.');
+          });
+      } catch (error) {
+        console.error('Error checking user:', error);
+        hideLoading();
+        showError('An error occurred. Please try again.');
+      }
+    });
+
+    // Verify OTP for registration
+    registerVerifyForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const otp = getOtpFromInputs(registerOtpInputs);
+
+      if (otp.length !== 6 || !/^\d+$/.test(otp)) {
+        showError('Please enter a valid 6-digit OTP');
+        return;
+      }
+
+      showLoading();
+
+      try {
+        // Verify OTP with Firebase
+        const credential = firebase.auth.PhoneAuthProvider.credential(
+          registerVerificationId.verificationId,
+          otp
+        );
+
+        firebase.auth().signInWithCredential(credential)
+          .then(async (result) => {
+            // User signed in successfully with Firebase
+            // Now register with our server
+            const phoneNumber = registerPhone.value.trim();
+            const firstNameValue = firstName.value.trim();
+            const lastNameValue = lastName.value.trim();
+
+            // Get selected gender
+            let genderValue = '';
+            for (const radio of genderInputs) {
+              if (radio.checked) {
+                genderValue = radio.value;
+                break;
+              }
+            }
+
+            const response = await fetch('/api/verify-otp', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                mobile: phoneNumber,
+                type: 'register',
+                otp: otp,
+                firstName: firstNameValue,
+                lastName: lastNameValue,
+                gender: genderValue,
+                firebase_uid: result.user.uid
+              })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+              showSuccess('Registration successful! Redirecting...');
+              setTimeout(() => {
+                window.location.href = data.redirectTo || '/rooms';
+              }, 1500);
+            } else {
+              throw new Error(data.message || 'Failed to verify OTP');
+            }
+          })
+          .catch((error) => {
+            console.error('Error verifying OTP:', error);
+            hideLoading();
+            showError(error.message || 'Invalid OTP. Please try again.');
+          });
+      } catch (error) {
+        console.error('Error during verification:', error);
+        hideLoading();
+        showError('An error occurred during verification. Please try again.');
+      }
+    });
+
+    // Back button for registration OTP form
+    registerBackBtn.addEventListener('click', function () {
+      registerOtpForm.classList.add('d-none');
+      registerForm.classList.remove('d-none');
+      clearInterval(registerInterval);
+
+      // Reset OTP inputs
+      registerOtpInputs.forEach(input => {
+        input.value = '';
+      });
+
+      // Reset reCAPTCHA
+      window.registerRecaptchaVerifier.render().then(widgetId => {
+        grecaptcha.reset(widgetId);
+      });
+    });
+
+    // Resend OTP for registration
+    registerResendBtn.addEventListener('click', function () {
+      const phoneNumber = +91${ registerPhone.value.trim()
+    };
+
+    showLoading();
+
+    // Reset reCAPTCHA
+    window.registerRecaptchaVerifier.render().then(widgetId => {
+      grecaptcha.reset(widgetId);
+
+      // Resend OTP
+      firebase.auth().signInWithPhoneNumber(phoneNumber, window.registerRecaptchaVerifier)
+        .then((confirmationResult) => {
+          registerVerificationId = confirmationResult;
+
+          // Reset countdown
+          resetCountdown(registerCountdown, registerTimer, registerResendBtn, registerInterval);
+          registerInterval = startCountdown(registerCountdown, registerTimer, registerResendBtn);
+
+          // Clear OTP inputs
+          registerOtpInputs.forEach(input => {
+            input.value = '';
+          });
+
+          // Focus first OTP input
+          registerOtpInputs[0].focus();
+
+          hideLoading();
+          showSuccess('OTP resent successfully');
+        })
+        .catch((error) => {
+          console.error('Error resending OTP:', error);
+          hideLoading();
+          showError(error.message || 'Failed to resend OTP. Please try again.');
+        });
+    });
+    });
+
+    // Check URL parameters for messages
+    document.addEventListener('DOMContentLoaded', function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const msg = urlParams.get('msg');
+
+      if (msg === 'logged_out') {
+        showSuccess('You have been logged out successfully');
+      } else if (msg === 'session_expired') {
+        showError('Your session has expired. Please login again');
+      } else if (msg === 'Please login first') {
+        showError('Please login to continue');
+      }
+    });
+  </script>
+</body>
+
+</html>

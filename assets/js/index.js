@@ -1,4 +1,4 @@
-// Define prices for extras
+  // Define prices for extras
   const CHAPATI_PRICE = 10;
   const ROTI_PRICE = 20;
 
@@ -383,7 +383,7 @@
   document.getElementById('checkoutForm').reset();
 
   // Set default order type
-  document.getElementById('orderType').value = 'whatsapp';
+  document.getElementById('orderType').value = 'homeorder';
   switchOrderType('whatsapp');
 
   // Update cart summary
@@ -443,7 +443,7 @@
   // FIXED: Updated switchOrderType function to toggle required attribute on address field
   function switchOrderType(type) {
     // Update hidden input
-    document.getElementById('orderType').value = type;
+    document.getElementById('orderType').value = type === 'whatsapp' ? 'homeorder' : 'tableorder';
 
   // Update tabs
   document.getElementById('whatsappOrderTab').classList.toggle('active', type === 'whatsapp');
@@ -496,7 +496,7 @@
   document.getElementById('tableNumber').value = tableNumber;
 }
 
-  // FIXED: Updated submitOrder function to handle validation differently for different order types
+  // FIXED: Updated submitOrder function to save order to database and then redirect to WhatsApp
   function submitOrder() {
     // Get order type
     const orderType = document.getElementById('orderType').value;
@@ -513,7 +513,7 @@
     });
   return;
         }
-    } else if (orderType === 'whatsapp') {
+    } else if (orderType === 'homeorder') {
         // For WhatsApp orders, make sure address is provided
         const addressField = document.getElementById('customerAddress');
   if (!addressField.value.trim()) {
@@ -554,8 +554,8 @@
   // Set cart items in hidden input
   document.getElementById('cartItemsInput').value = JSON.stringify(cart);
 
-  // If WhatsApp order, create WhatsApp message
-  if (orderType === 'whatsapp') {
+  // If it's a WhatsApp order, create the WhatsApp message and set it in the hidden input
+  if (orderType === 'homeorder') {
         const customerName = document.getElementById('customerName').value;
   const customerPhone = document.getElementById('customerPhone').value;
   const customerAddress = document.getElementById('customerAddress').value;
@@ -602,36 +602,19 @@
   const encodedMsg = encodeURIComponent(whatsappMsg);
   const whatsappLink = "https://wa.me/917066201454?text=" + encodedMsg;
 
-  // Clear cart
-  clearCart();
-
-  // Close modal
-  closeCheckoutModal();
-
-  // Show success message
-  Swal.fire({
-    title: 'Order Sent!',
-  text: 'Thank you from Hotel Aditya! Your order has been sent via WhatsApp.',
-  icon: 'success',
-  confirmButtonText: 'OK'
-        }).then(() => {
-    // Open WhatsApp in a new tab
-    window.open(whatsappLink, '_blank');
-        });
-    } else {
-        // For table orders, submit the form directly
-        const form = document.getElementById('checkoutForm');
+  // Set the WhatsApp link in the hidden input
+  document.getElementById('whatsappLinkInput').value = whatsappLink;
+    }
 
   // Show loading message
   Swal.fire({
     title: 'Processing Order...',
-  text: 'Please wait while we process your table order.',
+  text: 'Please wait while we process your order.',
   allowOutsideClick: false,
-            didOpen: () => {
+        didOpen: () => {
     Swal.showLoading();
   // Submit the form
-  form.submit();
-            }
-        });
-    }
+  document.getElementById('checkoutForm').submit();
+        }
+    });
 }

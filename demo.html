@@ -1,60 +1,49 @@
-\<!DOCTYPE html>
-<html lang="en">
+<script>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Place Your Order</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
 
-<body class="bg-light">
+  document.addEventListener("DOMContentLoaded", function () {
+    const title = document.querySelector(".welcome-title");
+    const text = title.textContent;
+    title.textContent = "";  // Clear original text
 
-  <div class="container mt-5">
-    <h2 class="text-center mb-4">Customer Order Form</h2>
+    // Create span for each character with staggered animation delay
+    text.split("").forEach((char, i) => {
+      const span = document.createElement("span");
+      span.textContent = char;
+      span.style.animationDelay = (i * 0.15) + "s";  // stagger delay
+      title.appendChild(span);
+    });
+  });
+</script>
 
-    <form method="POST" action="submit_order.php" class="row g-3 bg-white p-4 rounded shadow">
 
-      <div class="col-md-6">
-        <label for="cust_name" class="form-label">Customer Name</label>
-        <input type="text" class="form-control" id="cust_name" name="cust_name" required>
-      </div>
 
-      <div class="col-md-6">
-        <label for="cust_no" class="form-label">Contact Number</label>
-        <input type="text" class="form-control" id="cust_no" name="cust_no" required>
-      </div>
+@keyframes glow {
+0% {
+text-shadow: 0 0 2px #fff;
+}
+20% {
+text-shadow: 2px 2px 4px #ff4d4d; /* red bottom-right */
+}
+40% {
+text-shadow: 2px 2px 4px #4dff88; /* green bottom-left */
+}
+60% {
+text-shadow: 2px 2px 4px #4d88ff; /* blue top-left */
+}
+80% {
+text-shadow: 2px 2px 4px #ffcc4d; /* yellow top-right */
+}
+100% {
+text-shadow: 0 0 2px #cc4dff; /* purple center */
+}
+}
 
-      <div class="col-md-6">
-        <label for="table_no" class="form-label">Table Number (Leave blank for home order)</label>
-        <input type="number" class="form-control" id="table_no" name="table_no" min="1" max="20">
-      </div>
 
-      <div class="col-md-6">
-        <label for="mid" class="form-label">Menu Item ID (MID)</label>
-        <input type="number" class="form-control" id="mid" name="mid" required>
-      </div>
-
-      <div class="col-md-6">
-        <label for="quantity" class="form-label">Quantity</label>
-        <input type="number" class="form-control" id="quantity" name="quantity" min="1" value="1" required>
-      </div>
-
-      <div class="col-md-6">
-        <label for="order_type" class="form-label">Order Type</label>
-        <select class="form-select" id="order_type" name="order_type" required>
-          <option value="">Select Order Type</option>
-          <option value="tableorder">Table Order</option>
-          <option value="homeorder">Home Order</option>
-        </select>
-      </div>
-
-      <div class="col-12 text-center">
-        <button type="submit" class="btn btn-success px-5">Place Order</button>
-      </div>
-
-    </form>
-  </div>
-
-</body>
-
-</html>
+.welcome-title span {
+display: inline-block;
+animation-name: glow;
+animation-duration: 2s;
+animation-iteration-count: infinite;
+animation-fill-mode: both;
+}

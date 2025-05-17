@@ -1,0 +1,11 @@
+"Order ID","Customer Name",Phone,"Order Type","Table No","Order Status","Order Date","Order Cost"
+19,adtya,918788200189,tableorder,1,Pending,"2025-05-17 13:09:49",1250
+16,Vaishu,918788200190,tableorder,3,Served,"2025-05-17 11:42:55",230
+15,"Ciara Barnett",919089345645,homeorder,N/A,Completed,"2025-05-14 20:25:00",260
+13,"Diwkar SIngh",911234566889,tableorder,3,Completed,"2025-05-13 18:55:14",590
+12,"Diwakar ",917050686117,tableorder,4,Completed,"2025-05-13 18:24:53",100
+8,"Aditya ",918788200189,tableorder,10,Completed,"2025-05-12 11:52:20",330
+7,"Aditya Chavan",918788200189,tableorder,1,Completed,"2025-05-07 11:25:11",230
+6,"Mayur chavan",918788200189,tableorder,3,Completed,"2025-05-06 12:28:15",270
+5,"Radha ",918788200189,tableorder,2,Completed,"2025-05-06 12:26:14",500
+2,"Aditya Chavan",8788200189,tableorder,1,Completed,"2025-05-06 10:58:46",210
