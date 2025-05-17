@@ -2,7 +2,6 @@
 // ✅ Load environment variables from .env file
 $env_path = __DIR__ . '/.env';
 
-
 if (file_exists($env_path)) {
     $lines = file($env_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
@@ -25,7 +24,7 @@ try {
     if (!$conn) {
         throw new Exception("❌ Failed to connect to the database.");
     } else {
-        // echo "✅ Connection successful!";
+        //echo "✅ Connection successful!";
     }
 } catch (Exception $e) {
     echo "Database Error: " . $e->getMessage();

@@ -2,6 +2,10 @@
 // Database connection at the top
 include 'assets/config/dbconnect.php';
 
+// DEBUG: Turn on error reporting during development
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 require 'active.php';
 
 // Generate CSRF token if not exists
@@ -929,7 +933,7 @@ $vc = pg_fetch_result($vcResult, 0, 0);
                 if (xhr.status === 200) {
                     try {
                         const data = JSON.parse(xhr.responseText);
-                        
+                        alert("Parsed Response:", data);
                         if (data.success) {
                             Swal.fire({
                                 title: 'Success!',
@@ -955,6 +959,7 @@ $vc = pg_fetch_result($vcResult, 0, 0);
                         }
                     } catch (e) {
                         Swal.fire({
+                            
                             title: 'Error!',
                             text: 'Invalid response from server',
                             icon: 'error',
