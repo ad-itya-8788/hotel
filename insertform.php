@@ -933,7 +933,6 @@ $vc = pg_fetch_result($vcResult, 0, 0);
                 if (xhr.status === 200) {
                     try {
                         const data = JSON.parse(xhr.responseText);
-                        alert("Parsed Response:", data);
                         if (data.success) {
                             Swal.fire({
                                 title: 'Success!',
