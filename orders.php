@@ -2224,6 +2224,10 @@ if (isset($_GET['table'])) {
 }
 EOT;
 
-// Write the file
-file_put_contents('get-table-info.php', $get_table_info_content);
+if (@file_put_contents('get-table-info.php', $get_table_info_content) !== false) {
+    // success, do nothing
+} else {
+    // failure, do nothing
+}
+
 ?>
